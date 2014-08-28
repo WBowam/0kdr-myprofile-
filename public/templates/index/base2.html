@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+
+{% block extra %}{% endblock %}
+
+</head>
+<body>
+<div data-role="page">
+	<div data-role="header"  data-position="fixed" data-fullscreen="true">
+		{%block header %}{% endblock %}
+		</div>
+	<div data-role="content">
+
+
+{% block content %}
+
+{% endblock %}
+  </div>
+	<div data-role="footer" data-position="fixed" data-fullscreen="true">
+		<div class="ui-grid-b">
+		    
+		    <div class="ui-block-a">
+		       <a href="/" data-shadow="false" rel="external" data-role="button"  data-corners="false">帮带</a>
+		     	</div>
+		    <div class="ui-block-b" >
+		    <a href="/qiudai" data-shadow="false" data-ajax="false" rel="external" data-role="button" data-corners="false">求带</a>
+		     	</div>
+		    <div class="ui-block-c">
+		       <a href="/me" data-shadow="false" data-role="button" data-corners="false" >我</a>
+		     	</div>
+		   	</div>
+
+
+		</div>
+
+</div>
+
+</body>
+</html>

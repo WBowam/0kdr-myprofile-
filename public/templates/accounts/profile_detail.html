@@ -1,0 +1,59 @@
+
+{% block extra %}
+<style type="text/css">
+    .ui-page-active {
+        text-align: center;
+        font-size: 10px;
+
+    }
+    .ui-page-active p strong {
+        color: blue;
+        
+    }
+    .ui-page-active img {
+        width: 200px;
+        height: 300px;
+    }
+   .table {
+    margin: auto;
+    border-style: solid;
+    border: 2px;
+    border-color: black;
+    background: gray;
+    width: 400px;
+   }
+</style>
+
+{% endblock %}
+{% block header %}<h1>MMMMMMMMMMMMMMMMMMMMM</h1>{% endblock %}
+{% block content %}
+
+{% if user %}
+    <img src="{{ profile.get_mugshot_url }}" alt="头像" />
+    <table>
+        <tr><td>用户名:</td> <td>{{ profile.user.username }}</td><tr>
+
+    {% if user.username == profile.user.username %}
+        <tr><td>电话号码:</td> <td> {{ profile.phone }}</td><tr>
+
+
+        
+        {% if profile.user_state %}
+       <tr><td>用户状态:</td> <td>{{ profile.user_state }}</td><tr>
+        {% endif %}
+        
+        <tr><td>性别:</td> <td>{{ profile.gender }}</td><tr>
+
+        {% if profile.real_name %}
+        <tr><td>真实姓名</td> <td> {{ profile.real_name }}</td><tr>
+        {% endif %}
+
+        
+        <tr><td>一卡通照片:</td> <td> <img src="/media/{{ profile.one_card }}" alt="一卡通照片" /></td><tr>
+        </table>
+
+            {% endif %}
+    {% else %}
+        <h1><a href="/accounts/signin" >Login Please</a></h1>
+        {% endif %}
+{% endblock %}

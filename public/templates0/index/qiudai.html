@@ -1,0 +1,42 @@
+{% extends "index/base2.html" %}
+{% block extra %}
+<style type="text/css">
+    ul.errorlist {
+        margin: 0;
+        padding: 0;
+    }
+    .errorlist li {
+        background-color: red;
+        color: white;
+        display: block;
+        font-size: 10px;
+        margin: 0 0 3px;
+        padding: 4px 5px;
+    }
+	.ui-content {
+	text-align: center;
+}
+</style>
+{% endblock %}
+{% block title %}求带{% endblock %}{% block header %}<h1>填写快件信息</h1>{% endblock %}
+
+{% block content %}
+<BR><BR><BR>
+  	     <form method="POST" action="/">{% csrf_token %}
+            <label for="date">取件截止时间</label>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+            <input type="date" name="getdate" id="getdate">
+        </div>
+            <div class="ui-block-b">
+            <input type="time" name="gettime" id="gettime">
+            </div>
+            </div>
+                {{form1}}
+               <input type="range" name="tip" id="tip" value="2" min="0" max="10"/>
+                    <tr><td><input type="submit" value="提交" /></td><td><input type="reset" value="重置"/></td><td></td></tr>
+            </form>
+
+            
+    <BR><BR><BR>
+{% endblock %}

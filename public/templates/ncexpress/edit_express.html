@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% block title %} Express - Edit {% endblock %}
+
+{% block content %} 
+<table>
+<form action="#" method="POST"> {% csrf_token %}
+  {{form}}
+  <tr>
+    <td colspan="2" align="right"><input type="submit" value="Save"/></td>
+  </tr>
+</form>
+</table>
+
+
+
+
+
+{% endblock %}

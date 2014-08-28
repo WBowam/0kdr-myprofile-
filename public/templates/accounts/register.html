@@ -1,0 +1,22 @@
+{% extends "base3.html" %}
+{% block extra %}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{%block header %}<h1>欢 迎 来 到 华 电 快 递</h1>{% endblock %}
+		{% block content %}
+
+
+<form action="" method="post" >{% csrf_token %}
+{{form}}
+<input type="submit" value="注册">
+</form>
+{% if error %}
+    <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>sorry!</strong> 用户名或密码错误
+    </div>
+{% endif %}
+
+			{% endblock %}

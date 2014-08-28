@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block body}
+
+<div data-role="page" id="qiudai">
+  <div data-role="header">
+    <h1>Logo</h1>
+  </div>
+
+  <div data-role="content">
+<h1>我</h1>
+  </div>
+
+  <div data-role="footer">
+  <h1>页脚文本</h1>
+  </div>
+</div> 
+
+<div data-role="page" id="bangdai">
+  <div data-role="header">
+    <h1>欢迎访问我的主页</h1>
+  </div>
+
+  <div data-role="content">
+    <p>Goodbye!</p>
+    <a href="#qiudai">转到页面一</a>
+  </div>
+
+  <div data-role="footer">
+  <h1>页脚文本</h1>
+  </div>
+</div> 
+
+{% endblock %}

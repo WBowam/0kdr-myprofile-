@@ -1,0 +1,16 @@
+
+{% block body %}
+<form method="POST" action="#">{% csrf_token %}
+           
+                {{form}}
+               <input type="submit" value="提交" />
+               <input type="reset" value="重置"/>
+            </form>
+
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,59 @@
+{% extends "index/base2.html" %}
+{% block title %}帮带{% endblock %}
+{% block extra %}
+<style type="text/css">
+.ui-btn-text strong {
+	font-weight: 200px;
+	color: white;
+
+}
+.weizhi h1 a span span {
+	color: white;
+	font-size: 13px;
+}
+.weizhi h1 a span span span {
+	color: balck;
+	font-size: 17px;
+}
+.weizhi h1 a {
+	font-weight:400;
+	color: white;
+	background: #6C797C;
+}
+#bangqu {
+	font-weight: 300;
+	color: White;
+	background: #5DB15D;
+}
+</style>
+{% endblock %}
+{% block content %}
+
+
+
+<div data-role="collapsible-set"  >
+		   	{% for item in bangdai_list %}
+
+					<div class="weizhi" data-mini="false" data-role="collapsible"  data-content-the	me="e">
+					        <h1>从<span>{{ item.sourcePosition }}</span>送到<span> {{ item.destinationPosition }} </span><span id="qian"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.tip }}￥ </span></h1>
+					        <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>取件截止时间:</span><span>{{ item.getDate | date:"Y/m/d" }}&nbsp;&nbsp;{{ item.getTime }}</span></a> 
+					        
+					        	<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>送货时间:</span><span>{{ item.deadLine }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>快递公司:</span><span>{{ item.express_company }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>收件人名字:</span><span>{{ item.name }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>收件人电话:</span><span>{{ item.phone }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>种类:</span><span>{{ item.goodsVariety }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>重量:</span><span>{{ item.goodsWeight }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>价格:</span><span>{{ item.tip }}</span></a>
+								
+								<a id="bangqu" href="#" type="submit" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">我&nbsp;&nbsp;&nbsp;&nbsp;要&nbsp;&nbsp;&nbsp;&nbsp;帮&nbsp;&nbsp;&nbsp;&nbsp;取</span></span></a><br>
+			
+						</div>
+				{% endfor %}
+			</div>
+
+    
+    
+
+  	<BR><BR>
+{% endblock %}

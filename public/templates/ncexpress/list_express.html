@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<table border="1">
+<tr border="2"><td>快件种类</td><td>快递公司</td><td>发布时间</td><td>帮待人</td><td>状态</td><td>可进行的操作</td></tr>
+{% for item in express %}
+
+<tr>
+<td>{{ item.goodsVariety }}</td><td>{{ item.express_company }}</td>
+<td>{{ item.upTime }}</td><td>{%if item.expressed_by %}<a href="/accounts/{{ item.expressed_by }}">{{ item.expressed_by }}</a>{% else %}{% if item.created_by == request.user %}如果长时间没人帮您代取，可能是因为您给的小费太少，建议<a href="{% url 'apps.ncexpress.views.edit_express' id=item.id %}">增加小费</a>{% endif %}{% endif %}</td>
+<td>{{ item.express_status }}</td>
+<td>{% if item.created_by == request.user %}
+	{% if "求带" in item.express_status %}<a href="{% url 'apps.ncexpress.views.edit_express' id=item.id %}">更改&nbsp</a><a href="{% url 'apps.ncexpress.views.cancle_express' id=item.id %}">取消</a>{% elif "被抢" in item.express_status %}您的快件已经被人代取，如果逾期还未送到，您可以联系客服电话0312-7525197{% else %}谢谢您的使用{% endif %}{% else %}<a href="{% url 'apps.ncexpress.views.help_express' id=item.id %}">帮带</a>{% endif %}
+</td>
+
+</tr>
+
+{% endfor %}
+</table>
+{% endblock %}
