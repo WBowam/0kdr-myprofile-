@@ -1,0 +1,14 @@
+<form method="POST" action="#">{% csrf_token %}
+            <label for="date">取件截止时间</label>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+            <input type="date" required="required" name="getdate" id="getdate">
+        </div>
+            <div class="ui-block-b">
+            <input type="time" required="required" name="gettime" id="gettime">
+            </div>
+            </div>
+                {{qiudai_list}}
+               <input type="range" name="tip" id="tip" value="2" min="0" max="10"/>
+                    <tr><td><input type="submit" value="提交" /></td><td><input type="reset" value="重置"/></td><td></td></tr>
+            </form>

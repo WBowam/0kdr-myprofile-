@@ -28,9 +28,15 @@ def bangdai(request,source=''):
 		bangdai_list = Express.objects.filter(Q(getDate__gt=upTime) & Q(express_status=u'求带') & Q(sourcePosition ="北门")).order_by('-upTime')[0:10]
 	return render(request,'index/bangdai.html',{'bangdai_list':bangdai_list})
 
+
+
+def home(request):
+	return render(request,'index.html')
+
+
+
 @login_required
 def qiudai(request):
-####create_express####create_express####create_express####create_express
 	qiudai_list = ExpressForm(request.POST or None)
 	if qiudai_list.is_valid():
 		express1=qiudai_list.save(commit=False)
@@ -44,8 +50,6 @@ def qiudai(request):
 		#messages.success(request, "Your data has been saved!")
 		#return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		return HttpResponseRedirect("/")
-####list_express####list_express####list_express####list_express
-
 	return render(request,'index/qiudai.html',{'qiudai_list':qiudai_list})
 
 

@@ -7,19 +7,19 @@
 	color: white;
 
 }
-.weizhi h1 a span span {
+/*.weizhi h1 a span span {
 	color: white;
 	font-size: 13px;
-}
+}*/
 .weizhi h1 a span span span {
 	color: balck;
 	font-size: 17px;
 }
-.weizhi h1 a {
+/*.weizhi h1 a {
 	font-weight:400;
 	color: white;
 	background: #6C797C;
-}
+}*/
 #help {
 	font-weight: 300;
 	color: White;
@@ -33,7 +33,7 @@
 {%block header %}<h1>帮助别人代取快件吧</h1>{% endblock %}
 
 {% block content %}
-<BR><BR><BR>
+<h3 style="color:gray">点击空处显示菜单栏</h3>
 <a href="/fwzx/">服务中心</a><a href="/nm/">南门</a><a href="/bm/">北门</a>
 
 <div data-role="collapsible-set"  >
@@ -41,7 +41,7 @@
 
 					<div class="weizhi" data-mini="false" data-role="collapsible"  data-content-the	me="e">
 					        <h1>从<span>{{ item.sourcePosition }}</span>送到<span> {{ item.destinationPosition }} </span><span id="qian"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.tip }}￥ </span></h1>
-					        <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>取件截止时间:</span><span>{{ item.getDate | date:"m/d" }}&nbsp;&nbsp;{{ item.getTime }}</span></a> 
+					        <a href="#link" data-role="button" data-icon="search" data-iconpos="right"><span>取件截止时间:</span><span>{{ item.getDate | date:"m/d" }}&nbsp;&nbsp;{{ item.getTime }}</span></a> 
 					        
 					        	<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>送货时间:</span><span>{{ item.deadLine }}</span></a>
 								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>快递公司:</span><span>{{ item.express_company }}</span></a>

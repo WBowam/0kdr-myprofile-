@@ -25,6 +25,9 @@
 	color: White;
 	background: #5DB15D;
 }
+#guoqi {
+	color: red;
+}
 </style>
 
 {% endblock %}
@@ -32,7 +35,7 @@
 {%block header %}<a href={{ referer }} data-role="button" data-icon="arrow-l">返回</a><h1>{{ title }}</h1>{% endblock %}
 
 {% block content %}
-<BR><BR>
+<h3 style="color:gray">点击空处显示菜单栏</h3>
 
 
 <div data-role="collapsible-set"  >
@@ -41,7 +44,7 @@
 					<div class="weizhi" data-mini="false" data-role="collapsible"  data-content-the	me="e">
 					        <h1>从<span>{{ item.sourcePosition }}</span>送到<span> {{ item.destinationPosition }} </span><span id="qian"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.tip }}￥ </span></h1>
 					        <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>快件编号:</span><span>{{ item.id }}</span></a>
-					         <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>快件状态:</span><span>{{ item.express_status }}</span></a>
+					         <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>快件状态:</span><span{% if '过期' in item.express_status %} id='guoqi'{% endif %}>{{ item.express_status }}</span></a>
 					        
 					        <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>取件截止时间:</span><span>{{ item.getDate | date:"m/d" }}&nbsp;&nbsp;{{ item.getTime }}</span></a> 
 					        
@@ -54,12 +57,12 @@
 								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>价格:</span><span>{{ item.tip }}￥</span></a>
 								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>帮带人:</span><span>{{ item.expressed_by.username }}</span></a>
 					        <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>帮带人电话:</span><span>{{ item.expressed_by.my_profile.phone }}</span></a>
-								<!-- {% if '帮' in title %}
-								<a id="help" href="{% url 'apps.ncexpress.views.help_express' id=item.id %}" type="submit" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">我&nbsp;&nbsp;&nbsp;&nbsp;要&nbsp;&nbsp;&nbsp;&nbsp;帮&nbsp;&nbsp;&nbsp;&nbsp;取</span></span></a><br>
-								{% endif %}
-								{% if '求' in title %}
-								<a id="help" href="{% url 'apps.ncexpress.views.help_express' id=item.id %}" type="submit" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">我&nbsp;&nbsp;&nbsp;&nbsp;要&nbsp;&nbsp;&nbsp;&nbsp;帮&nbsp;&nbsp;&nbsp;&nbsp;取</span></span></a><br>
-								{% endif %} -->
+								{% if item.expressed_by %}
+								{% else %}
+								{%if '过期' in item.express_status %}
+								{% else %}
+								<a href="/express/cancle/{{ item.id }}" type="submit" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;&nbsp;&nbsp;&nbsp;求&nbsp;&nbsp;&nbsp;&nbsp;带</span></span></a><br>
+								{% endif %}{% endif %}
 			
 						</div>
 				{% endfor %}
@@ -68,5 +71,5 @@
     
     
 
-  	<BR><BR>
+
 {% endblock %}

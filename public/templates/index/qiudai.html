@@ -1,4 +1,4 @@
-
+{% extends "index/base2.html" %}
 {% block title %}求带{% endblock %}
 {% block extra %}
 <style type="text/css">
@@ -21,17 +21,16 @@
 {% endblock %}
 
 {% block header %}<h1>填写快件信息</h1>{% endblock %}
-
 {% block content %}
-<BR><BR><BR>
-        <form method="POST" action="/">{% csrf_token %}
+<h3 style="color:gray">点击空处显示菜单栏</h3>
+        <form method="POST" action="#">{% csrf_token %}
             <label for="date">取件截止时间</label>
             <div class="ui-grid-a">
                 <div class="ui-block-a">
-            <input type="date" name="getdate" id="getdate">
+            <input type="date" required="required" name="getdate" id="getdate">
         </div>
             <div class="ui-block-b">
-            <input type="time" name="gettime" id="gettime">
+            <input type="time" required="required" name="gettime" id="gettime">
             </div>
             </div>
                 {{qiudai_list}}

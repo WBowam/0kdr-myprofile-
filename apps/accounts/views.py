@@ -107,23 +107,24 @@ def login_success(request):
 
 
 def login_view(request):
-    error = ''
-    form = MyLoginForm()
-    if request.method == 'POST':
-        form = MyLoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(username=cd['username'], password=cd['password'])
-            if user is not None and user.is_active:
-                login(request, user)
+	if request.user.is_authenticated():
+		return  HttpResponseRedirect('/index/bangdai')
+	form = MyLoginForm()
+	if request.method == 'POST':
+		form = MyLoginForm(request.POST)
+		if form.is_valid():
+			cd = form.cleaned_data
+			user = authenticate(username=cd['username'], password=cd['password'])
+			if user is not None and user.is_active:
+				login(request, user)
 
-                return HttpResponseRedirect("/")
+				return HttpResponseRedirect("/index/bangdai/")
 
-            else :
-                form = MyLoginForm(request.POST)
-                error = "用户名或密码错误"
+			else :
+				form = MyLoginForm(request.POST)
+				error = "用户名或密码错误"
 
-    return render_to_response("accounts/login.html",
+	return render_to_response("accounts/login.html",
     {'form': form,'error':error,},
     context_instance=RequestContext(request)
     )

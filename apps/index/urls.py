@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     url(r'^qiudai/$',qiudai,name='qiudai'),
     url(r'^me/',me,name='me'),
     url(r'^jia/',jia,name='jia'),
-    url(r'^$',bangdai,name='bangdai'),
+    url(r'^bangdai$',bangdai,name='bangdai'),
     url(r'^(?P<source>[^/]+)/$',bangdai,name='bangdai'),
     #url(r'^myexpress/(?P<which>[^/]+)/$', my_express,name='my_express'),
     
