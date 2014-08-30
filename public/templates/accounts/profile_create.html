@@ -1,0 +1,13 @@
+
+{% block title %}实 名 认 证{% endblock %}
+{% block header %}<a href={{ referer }} data-role="button" data-icon="arrow-l">返回</a><h1>实 名 认 证</h1>{% endblock %}
+	{% block content %}
+<BR>
+			<form method="POST" action="#">
+	{% csrf_token %}
+
+            {{form}}
+<input type="submit" value="提交" /><input type="reset" value="重置"/>
+
+    </form>
+{% endblock %}

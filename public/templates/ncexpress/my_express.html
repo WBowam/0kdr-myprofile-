@@ -1,26 +1,72 @@
-{% extends 'base.html' %}{% if messages %}
-<ul class="messages">
-  {% for message in messages %}
-  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
+{% extends "index/base2.html" %}
+{% block title %}帮带{% endblock %}
+{% block extra %}
+<style type="text/css">
+.ui-btn-text strong {
+	font-weight: 200px;
+	color: white;
+
+}
+.weizhi h1 a span span {
+	color: white;
+	font-size: 13px;
+}
+.weizhi h1 a span span span {
+	color: balck;
+	font-size: 17px;
+}
+.weizhi h1 a {
+	font-weight:400;
+	color: white;
+	background: #6C797C;
+}
+#help {
+	font-weight: 300;
+	color: White;
+	background: #5DB15D;
+}
+</style>
+
+{% endblock %}
+
+{%block header %}<a href={{ referer }} data-role="button" data-icon="arrow-l">返回</a><h1>{{ title }}</h1>{% endblock %}
 
 {% block content %}
-<table border="1">
-<tr border="2"><td>发布人</td><td>快件种类</td><td>快递公司</td><td>发布时间</td><td>帮待人</td><td>状态</td><td>可进行的操作</td></tr>
-{% for item in my_express %}
+<BR><BR>
 
-<tr>
-<td>{{ item.created_by }}</td><td>{{ item.goodsVariety }}</td><td>{{ item.express_company }}</td>
-<td>{{ item.upTime }}</td><td>{% if "求带" in item.express_status %}如果长时间没人帮您代取，可能是因为您给的小费太少，建议<a href="{% url 'apps.ncexpress.views.edit_express' id=item.id %}">增加小费</a>
-{% elif "被抢" in item.express_status %}<a href="/accounts/{{ item.expressed_by}}">{{ item.expressed_by }}</a>{% elif "过期" in item.express_status %}{% if item.expressed_by %}已经被抢，且已过期，如果收件人还没收到快件，请与客服联系{% else %}被发布人取消或自动过期{% endif %}{% endif %}</td>
-<td>{% if item.expressed_by == request.user %}您已经抢到此订单，请您尽快送达，记得拿您的报酬哦~~{% else %}{{ item.express_status }}{% endif %}</td>
-<td>{% if "求带" in item.express_status %}<a href="{% url 'apps.ncexpress.views.edit_express' id=item.id %}">更改&nbsp</a>
-<a href="{% url 'apps.ncexpress.views.cancle_express' id=item.id %}">取消</a>
-{% elif "被抢" in item.express_status %}您的快件已经被人代取，如果逾期还未送到，您可以联系客服电话0312-7525197{% else %}谢谢您的使用{% endif %}</td>
-</tr>
 
-{% endfor %}
-</table>
+<div data-role="collapsible-set"  >
+		   	{% for item in my_express %}
+
+					<div class="weizhi" data-mini="false" data-role="collapsible"  data-content-the	me="e">
+					        <h1>从<span>{{ item.sourcePosition }}</span>送到<span> {{ item.destinationPosition }} </span><span id="qian"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.tip }}￥ </span></h1>
+					        <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>快件编号:</span><span>{{ item.id }}</span></a>
+					         <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>快件状态:</span><span>{{ item.express_status }}</span></a>
+					        
+					        <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>取件截止时间:</span><span>{{ item.getDate | date:"m/d" }}&nbsp;&nbsp;{{ item.getTime }}</span></a> 
+					        
+					        	<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>送货时间:</span><span>{{ item.deadLine }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>快递公司:</span><span>{{ item.express_company }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" onClick='copyToClipBoard()' data-iconpos="right"><span>收件人名字:</span><span>{{ item.name }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>收件人电话:</span><span>{{ item.phone }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>种类:</span><span>{{ item.goodsVariety }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>重量:</span><span>{{ item.goodsWeight }}</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>价格:</span><span>{{ item.tip }}￥</span></a>
+								<a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>帮带人:</span><span>{{ item.expressed_by.username }}</span></a>
+					        <a href="#link"   data-role="button" data-icon="search" data-iconpos="right"><span>帮带人电话:</span><span>{{ item.expressed_by.my_profile.phone }}</span></a>
+								<!-- {% if '帮' in title %}
+								<a id="help" href="{% url 'apps.ncexpress.views.help_express' id=item.id %}" type="submit" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">我&nbsp;&nbsp;&nbsp;&nbsp;要&nbsp;&nbsp;&nbsp;&nbsp;帮&nbsp;&nbsp;&nbsp;&nbsp;取</span></span></a><br>
+								{% endif %}
+								{% if '求' in title %}
+								<a id="help" href="{% url 'apps.ncexpress.views.help_express' id=item.id %}" type="submit" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">我&nbsp;&nbsp;&nbsp;&nbsp;要&nbsp;&nbsp;&nbsp;&nbsp;帮&nbsp;&nbsp;&nbsp;&nbsp;取</span></span></a><br>
+								{% endif %} -->
+			
+						</div>
+				{% endfor %}
+			</div>
+
+    
+    
+
+  	<BR><BR>
 {% endblock %}

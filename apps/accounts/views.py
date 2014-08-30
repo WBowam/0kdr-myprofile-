@@ -28,9 +28,11 @@ def create(request):
 		if request.method=='POST':
 			form=MyProfileForm(request.POST,request.FILES)
 			if form.is_valid():
+				#mugshot=form.cleaned_data['mugshot']
 				#onecard=request.FIELS
 				profile=form.save(commit=False)
 				profile.user=request.user
+				#profile.mugshot=mugshot
 				profile.save()
 				#form = MyProfileForm()
 				return HttpResponseRedirect("/accounts/detail/")
@@ -42,9 +44,11 @@ def create(request):
 	return HttpResponseRedirect("/accounts/detail/")
 
 def detail(request):
+	referer=request.META.get('HTTP_REFERER', '/')
 	try:
 		user_detail=MyProfile.objects.get(user=request.user)
-		return render(request,'accounts/profile_detail.html',{'user_detail':user_detail})
+		title=u'个人资料'
+		return render(request,'accounts/profile_detail.html',{'user_detail':user_detail,'referer':referer,'title':title})
 	except Exception, e:
 		return HttpResponseRedirect(reverse('apps.accounts.views.create'))
 
@@ -144,3 +148,29 @@ def register(request):
 	{'form': form,},
 	context_instance=RequestContext(request)
 	)
+
+
+def password_reset(request):
+	if request.method=='POST':
+		try:
+			user=User.objects.get(id=request.user.id)
+		except Exception, e:
+			return HttpResponseRedirect("/accounts/login/")
+		password_current=request.POST['password_current']
+		check=authenticate(username=user.username,password=password_current)
+		if check :
+			password_one=request.POST['password_one']
+			password_two=request.POST['password_two']
+			if password_one == password_two :
+				user.set_password(password_one)
+				user.save()
+				logout(request)
+				return render(request,'accounts/password_reset_success.html')
+			else :
+				error=u"新密码两次不一致"
+				return render(request,'accounts/password_reset.html',{ 'error':error })
+		else:
+			error="目前的密码输入错误"
+			return render(request,'accounts/password_reset.html',{ 'error':error,'error0':error0 })
+	else:
+		return render(request,'accounts/password_reset.html')

@@ -26,7 +26,7 @@ class MyProfileForm(ModelForm):
     #     return profile
 
 class MyUserCreationForm(UserCreationForm): 
-    username = forms.RegexField(label=("用户名"), max_length=30,
+    username = forms.RegexField(label=(u"用户名"), max_length=30,
                 regex=r'^[\w.@+-]+$',
                 widget=forms.TextInput(attrs={'placeholder': '只能用字母、数字和字符', }),
 
@@ -35,7 +35,7 @@ class MyUserCreationForm(UserCreationForm):
                     'invalid': ("只能用字母、数字和字符")})     
     class Meta:
              model = User
-             fields = ("username","email","first_name")
+             fields = ("username",)
 
 
 

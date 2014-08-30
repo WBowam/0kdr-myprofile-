@@ -3,15 +3,29 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-
+import datetime
+from django.db.models import Q
+from django.utils import timezone
 # Create your views here.
 from apps.ncexpress.forms import ExpressForm
 from apps.ncexpress.models import Express
 
 
 @login_required
-def bangdai(request):
-	bangdai_list=Express.objects.filter(express_status=u'求带').order_by('-upTime')[0:10]
+def bangdai(request,source=''):
+	#now=datetime.datetime.now()
+	now = timezone.now()
+	upTime = now - datetime.timedelta(hours=48, minutes=59, seconds=59)
+	bangdai_list = Express.objects.filter(upTime__gt=upTime).filter(express_status=u'求带').order_by('-upTime')[0:10]
+	#bangdai_list=Express.objects.filter(express_status=u'求带').order_by('-upTime')[0:10]
+	if source=='':
+		bangdai_list = Express.objects.filter(Q(getDate__gt=upTime) & Q(express_status=u'求带')).order_by('-upTime')[0:10]
+	elif source == 'fwzx':
+		bangdai_list = Express.objects.filter(Q(getDate__gt=upTime) & Q(express_status=u'求带') & Q(sourcePosition ="服务中心")).order_by('-upTime')[0:10]
+	elif source == 'nm':
+		bangdai_list = Express.objects.filter(Q(getDate__gt=upTime) & Q(express_status=u'求带') & Q(sourcePosition ="南门")).order_by('-upTime')[0:10]
+	elif source == 'bm':
+		bangdai_list = Express.objects.filter(Q(getDate__gt=upTime) & Q(express_status=u'求带') & Q(sourcePosition ="北门")).order_by('-upTime')[0:10]
 	return render(request,'index/bangdai.html',{'bangdai_list':bangdai_list})
 
 @login_required

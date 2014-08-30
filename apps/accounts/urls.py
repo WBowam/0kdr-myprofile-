@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from views import detail,edit,create,login_view,logout_view,login_success,register
+from views import detail,edit,create,login_view,logout_view,login_success,register,password_reset
 
 
 urlpatterns = patterns('',
@@ -19,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^create/$',create,name="create"),
     url(r'^detail/$',detail,name="profile_detail"),
     url(r'^edit/$',edit,name="profile_edit"),
+    url(r'^passwordreset/$',password_reset,name="password_reset"),
     #(r'^accounts/', include('userena.urls')),
 )

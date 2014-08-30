@@ -1,4 +1,4 @@
-
+{% extends "base3.html" %}
 {% block extra %}
 <style type="text/css">
     .ui-page-active {
@@ -14,6 +14,14 @@
         width: 200px;
         height: 300px;
     }
+    #mugshot {
+        width: 80px;
+        height: 80px;
+    }
+    #onecard {
+        width: 162px;
+        height:255px;
+    }
    .table {
     margin: auto;
     border-style: solid;
@@ -25,31 +33,26 @@
 </style>
 
 {% endblock %}
-{% block header %}<h1>MMMMMMMMMMMMMMMMMMMMM</h1>{% endblock %}
+{% block header %}<a href={{ referer }} data-role="button" data-icon="arrow-l">返回</a><h1>{{ title }}</h1>{% endblock %}
 {% block content %}
 
-{% if user %}
-    <img src="{{ profile.get_mugshot_url }}" alt="头像" />
+{% if request.user %}
+    <img id="mugshot" src="{{ user_detail.mugshot.thumbnail.url }}" alt="头像" />
     <table>
-        <tr><td>用户名:</td> <td>{{ profile.user.username }}</td><tr>
+        <tr><td>用户名:</td> <td>{{ user_detail.user.username }}</td><tr>
 
-    {% if user.username == profile.user.username %}
-        <tr><td>电话号码:</td> <td> {{ profile.phone }}</td><tr>
-
+    {% if request.user == user_detail.user %}
+        <tr><td>电话号码:</td> <td> {{ user_detail.phone }}</td><tr>
 
         
-        {% if profile.user_state %}
-       <tr><td>用户状态:</td> <td>{{ profile.user_state }}</td><tr>
-        {% endif %}
-        
-        <tr><td>性别:</td> <td>{{ profile.gender }}</td><tr>
+        <tr><td>性别:</td> <td>{{ user_detail.gender }}</td><tr>
 
-        {% if profile.real_name %}
-        <tr><td>真实姓名</td> <td> {{ profile.real_name }}</td><tr>
+        {% if user_detail.student_number %}
+        <tr><td>学号:</td> <td> {{ user_detail.student_number }}</td><tr>
         {% endif %}
 
         
-        <tr><td>一卡通照片:</td> <td> <img src="/media/{{ profile.one_card }}" alt="一卡通照片" /></td><tr>
+        <tr><td>一卡通:</td> <td> <img id="onecard" src="{{ user_detail.one_card.thumbnail.url }}" alt="一卡通照片" /></td><tr>
         </table>
 
             {% endif %}

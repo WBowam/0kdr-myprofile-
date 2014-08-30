@@ -42,19 +42,18 @@ def list_express(request):
 
 @login_required
 def my_express(request,which='all'):
-	referer=request.META.get('HTTP_REFERER', '/')
 	if which=='all':
 		my_express=Express.objects.filter(Q(created_by=request.user) | Q(expressed_by=request.user))
-		title=u'和我有关的快件'
-		return render(request,'ncexpress/my_express.html',{'my_express':my_express,'title':title,'referer':referer})
+        title=u'和我有关的快件'
+        return render(request,'ncexpress/my_express.html',{'my_express':my_express,'title':title})
 	if which=='expressed':
-		my_express=Express.objects.filter(expressed_by=request.user)
-		title=u'我帮带的快件'
-		return render(request,'ncexpress/my_express.html',{'my_express':my_express,'title':title,'referer':referer})
-	if which=='created':
-		my_express=Express.objects.filter(created_by=request.user)
-		title=u'我求带的快件'
-        return render(request,'ncexpress/my_express.html',{'my_express':my_express,'title':title,'referer':referer})
+        my_express=Express.objects.filter(expressed_by=request.user.user)
+        title=u'我帮带的快件'
+        return render(request,'ncexpress/my_express.html',{'my_express':my_express,'title':title})
+    if which=='created':
+        my_express=Express.objects.filter(created_by=request.user)
+        title=u'我求带的快件'
+        return render(request,'ncexpress/my_express.html',{'my_express':my_express,'title':title})
 
 @login_required
 def edit_express(request,id):
@@ -75,8 +74,8 @@ def cancle_express(request,id):
     express = Express.objects.get(id=id)
     express.express_status=u'过期'
     express.save()
-    #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    return HttpResponseRedirect('/express/myexpress/created')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 @login_required
 def help_express(request,id):
@@ -85,4 +84,4 @@ def help_express(request,id):
     express.expressed_by=request.user
     express.save()
     #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    return HttpResponseRedirect('/express/myexpress/expressed')
+    return HttpResponseRedirect('/express/myexpress/all')

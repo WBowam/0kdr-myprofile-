@@ -1,0 +1,26 @@
+<!-- {% extends 'base.html' %}{% if messages %} -->
+<ul class="messages">
+  {% for message in messages %}
+  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% block content %}
+<table border="1">
+<tr border="2"><td>发布人</td><td>快件种类</td><td>快递公司</td><td>发布时间</td><td>帮待人</td><td>状态</td><td>可进行的操作</td></tr>
+{% for item in my_express %}
+
+<tr>
+<td>{{ item.created_by }}</td><td>{{ item.goodsVariety }}</td><td>{{ item.express_company }}</td>
+<td>{{ item.upTime }}</td><td>{% if "求带" in item.express_status %}如果长时间没人帮您代取，可能是因为您给的小费太少，建议<a href="{% url 'apps.ncexpress.views.edit_express' id=item.id %}">增加小费</a>
+{% elif "被抢" in item.express_status %}<a href="/accounts/{{ item.expressed_by}}">{{ item.expressed_by }}</a>{% elif "过期" in item.express_status %}{% if item.expressed_by %}已经被抢，且已过期，如果收件人还没收到快件，请与客服联系{% else %}被发布人取消或自动过期{% endif %}{% endif %}</td>
+<td>{% if item.expressed_by == request.user %}您已经抢到此订单，请您尽快送达，记得拿您的报酬哦~~{% else %}{{ item.express_status }}{% endif %}</td>
+<td>{% if "求带" in item.express_status %}<a href="{% url 'apps.ncexpress.views.edit_express' id=item.id %}">更改&nbsp</a>
+<a href="{% url 'apps.ncexpress.views.cancle_express' id=item.id %}">取消</a>
+{% elif "被抢" in item.express_status %}您的快件已经被人代取，如果逾期还未送到，您可以联系客服电话0312-7525197{% else %}谢谢您的使用{% endif %}</td>
+</tr>
+
+{% endfor %}
+</table>
+{% endblock %}

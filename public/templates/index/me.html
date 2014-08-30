@@ -6,8 +6,8 @@
 		      
 		    <div data-role="collapsible" data-theme="b" data-content-theme="e">
 		        <h3>我的快件</h3>
-		        <a href="#link" data-role="button" data-icon="back" data-iconpos="right">我求带的快件</a>
-			    <a href="#link" data-role="button" data-icon="forward" data-iconpos="right">我帮带的快件</a>
+		        <a href="/express/myexpress/created" data-role="button" data-icon="back" data-iconpos="right">我求带的快件</a>
+			    <a href="/express/myexpress/expressed" data-role="button" data-icon="forward" data-iconpos="right">我帮带的快件</a>
 			    </div>
 
 			<div data-role="collapsible" data-theme="b" data-content-theme="e">
@@ -15,8 +15,8 @@
 
 
 				<a href="/accounts/detail" data-role="button" data-icon="search" data-iconpos="right">查看我的资料</a>
-				<a href="#' user.username %}" data-role="button" data-icon="alert" data-iconpos="right">更改密码</a>
-				<a href="#" data-role="button" data-icon="arrow-r" data-iconpos="right">更改邮箱</a>
+				<a href="accounts/passwordreset/" data-role="button" data-icon="alert" data-iconpos="right">更改密码</a>
+				<!-- <a href="#" data-role="button" data-icon="arrow-r" data-iconpos="right">更改邮箱</a> -->
 				{% if user.is_authenticated %}
 				<a href="/accounts/logout/" rel="external" data-role="button" data-icon="arrow-r" data-iconpos="right">注销</a>
 				{% else %}
