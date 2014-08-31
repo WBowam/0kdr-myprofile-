@@ -8,12 +8,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 class MyProfileForm(ModelForm):
-    
-
+    #mugshot= forms.FileField()
     class Meta:
         #model = get_profile_model()
         model= MyProfile
-        exclude = ['user','check']
+
+        exclude = ['user','check','one_card','mugshot']
 
     # def save(self, force_insert=False, force_update=False, commit=True):
     #     profile = super(MyProfileForm, self).save(commit=commit)

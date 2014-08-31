@@ -32,6 +32,8 @@ def create(request):
 				#onecard=request.FIELS
 				profile=form.save(commit=False)
 				profile.user=request.user
+				profile.mugshot=request.FILES['mugshot']
+				profile.one_card=request.FILES['one_card']
 				#profile.mugshot=mugshot
 				profile.save()
 				#form = MyProfileForm()
@@ -50,7 +52,7 @@ def detail(request):
 		title=u'个人资料'
 		return render(request,'accounts/profile_detail.html',{'user_detail':user_detail,'referer':referer,'title':title})
 	except Exception, e:
-		return HttpResponseRedirect(reverse('apps.accounts.views.create'))
+		return HttpResponseRedirect('/accounts/create/')
 
 
 # def detail(request):
@@ -58,23 +60,41 @@ def detail(request):
 # 	return render(request,'accounts/profile_detail.html',{'user_detail':user_detail})
 
 
+# def edit(request):
+# 	try:
+# 		user_profile_instance=MyProfile.objects.get(user=request.user)
+# 		form=MyProfileForm(request.POST or None,instance=user_profile_instance)
+# 		if form.is_valid():
+# 			profile=form.save(commit=True)
+# 			profile.user=request.user
+# 			profile.save()
+# 			#messages.success(request, "Your data has been saved!")
+# 			#return HttpResponseRedirect("/express/myexpress/")
+# 			return HttpResponseRedirect(reverse('apps.accounts.views.detail'))
+# 			#return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+# 		return render(request,'accounts/profile_edit.html',{'form':form})
+# 	except Exception, e:
+# 		return HttpResponseRedirect(reverse('apps.accounts.views.create'))
+
+
 def edit(request):
-	try:
-		user_profile_instance=MyProfile.objects.get(user=request.user)
-		form=MyProfileForm(request.POST or None,instance=user_profile_instance)
+	if request.method=='POST':
+		form=MyProfileForm(request.POST or None)
 		if form.is_valid():
 			profile=form.save(commit=True)
 			profile.user=request.user
 			profile.save()
 			#messages.success(request, "Your data has been saved!")
 			#return HttpResponseRedirect("/express/myexpress/")
-			return HttpResponseRedirect(reverse('apps.accounts.views.detail'))
-			#return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-		return render(request,'accounts/profile_edit.html',{'form':form})
-	except Exception, e:
-		return HttpResponseRedirect(reverse('apps.accounts.views.create'))
-
-	
+			return render(request,'accounts/profile_detail.html',{'form':profile})
+		return render(request,'accounts/edit.html',{'form':form})
+	else:
+		try:
+			user_profile_instance=MyProfile.objects.get(user=request.user)
+			form=MyProfileForm(instance=user_profile_instance)
+			return render(request,'accounts/edit.html',{'form':form})
+		except Exception, e:
+			return HttpResponseRedirect(reverse('apps.accounts.views.create'))
 
 def login_success(request):
 	return render(request,'accounts/login_success.html')
