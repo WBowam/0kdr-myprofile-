@@ -130,6 +130,7 @@ def login_view(request):
 	if request.user.is_authenticated():
 		return  HttpResponseRedirect('/index/bangdai')
 	form = MyLoginForm()
+	error=''
 	if request.method == 'POST':
 		form = MyLoginForm(request.POST)
 		if form.is_valid():
@@ -162,7 +163,7 @@ def register(request):
 		form = MyUserCreationForm(request.POST)
 		if form.is_valid():
 			new_user = form.save()
-			return HttpResponseRedirect("/")
+			return HttpResponseRedirect("/accounts/login/")
 	else:
 		form = MyUserCreationForm()
 	return render_to_response("accounts/register.html",
@@ -185,8 +186,9 @@ def password_reset(request):
 			if password_one == password_two :
 				user.set_password(password_one)
 				user.save()
-				logout(request)
-				return render(request,'accounts/password_reset_success.html')
+				#logout(request)
+				return HttpResponseRedirect("/index/me/")
+				#return render(request,'accounts/password_reset_success.html')
 			else :
 				error=u"新密码两次不一致"
 				return render(request,'accounts/password_reset.html',{ 'error':error })

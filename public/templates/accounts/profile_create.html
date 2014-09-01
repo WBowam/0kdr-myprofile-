@@ -3,8 +3,7 @@
 {% block header %}<a href="/index/me/" data-role="button" data-icon="arrow-l">返回</a><h1>还没有实名认证</h1>{% endblock %}
 	{% block content %}
 <BR>
-			<form enctype="multipart/form-data" method="POST" action="#" data-ajax="false">
-	{% csrf_token %}
+			<form enctype="multipart/form-data" method="POST" action="#" data-ajax="false">{% csrf_token %}
 	<label for="mugshot" >头像:</label>
 <input type='file' name='mugshot' required="required">
             {{form}}

@@ -49,7 +49,7 @@ def qiudai(request):
 		#return HttpResponseRedirect(reverse('apps.ncexpress.views.my_express',args=['all']))
 		#messages.success(request, "Your data has been saved!")
 		#return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-		return HttpResponseRedirect("/")
+		return HttpResponseRedirect("/index/bangdai/")
 	return render(request,'index/qiudai.html',{'qiudai_list':qiudai_list})
 
 

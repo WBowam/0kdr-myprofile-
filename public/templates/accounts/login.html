@@ -1,6 +1,13 @@
+{% extends "base3.html" %}
+{%block header %}登  录{% endblock %}
+{% block content %}	
 {{ error }}
 <form action="#" method="post">
 {{ form }}
-<input type="submit" value="提交" />
-<input type="reset" value="重置" />
+<input type="submit" value="登录" />
+<div class="ui-grid-a">
+     <div class="ui-block-a"><a href="/accounts/passwordreset/" data-role="button">忘记密码...</a></div>
+     <div class="ui-block-b"><a href="/accounts/register/" data-role="button">注册</a></div>
+ </div>
 </form>
+{% endblock %}

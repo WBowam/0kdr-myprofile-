@@ -4,13 +4,14 @@
 
 </style>
 {% endblock %}
-{%block header %}<h1>欢 迎 来 到 华 电 快 递</h1>{% endblock %}
+{%block header %}<a href="/accounts/login/" data-role="button" data-icon="arrow-l">返回</a><h1>欢 迎 来 到 华 电 快 递</h1>{% endblock %}
 		{% block content %}
 
 <BR>
 <form action="" method="post" >{% csrf_token %}
 {{form}}
 <input type="submit" value="注册">
+<a href="/accounts/login/" data-role="button">登录</a>
 </form>
 {% if error %}
     <div class="alert alert-error">

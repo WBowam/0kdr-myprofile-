@@ -42,8 +42,8 @@ class MyUserCreationForm(UserCreationForm):
 
 class MyLoginForm(forms.Form): 
     username = forms.CharField(required=True,
-                                label='用户名',
+                                label='',
                                 widget=forms.TextInput(attrs={'placeholder': '用户名', })
                                 )
-    password = forms.CharField(required=True,label='密码',widget=forms.PasswordInput(
+    password = forms.CharField(required=True,label='',widget=forms.PasswordInput(
                                                     attrs={'placeholder': '密码', }))
